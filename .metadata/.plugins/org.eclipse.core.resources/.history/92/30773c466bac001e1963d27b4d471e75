@@ -1,0 +1,21 @@
+package com.revolusys.Registration_api.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import com.revolusys.Registration_api.entities.Register;
+
+public interface RegisterService {
+
+public List<Register> getRegisters();
+	
+	public Optional<Register> getRegister(long RegisterId);
+	
+	public Register addRegister(Register Register);
+	
+	public Register updateRegister(Register Register,long RegisterId);
+	
+	public String delete(long RegisterId);
+	
+	public String deleteAll();
+}

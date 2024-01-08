@@ -1,0 +1,57 @@
+package com.revolusys.Registration_api.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.revolusys.Registration_api.advice.RecordAlreadyPresentException;
+import com.revolusys.Registration_api.entities.Register;
+import com.revolusys.Registration_api.repository.RegisterRepo;
+
+@Service
+public class RegisterServiceImpl implements RegisterService {
+
+	@Autowired
+	private RegisterRepo repo;
+	
+	@Override
+	public List<Register> getAll() 
+	{
+		return this.repo.findAll();
+	}
+
+	@Override
+	public Optional<Register> get(int id)
+	{
+		return this.repo.findById(id);
+	}
+
+	@Override
+	public Register add(Register register) {
+		Register storedData=repo.findByemail(register.getEmail());
+		if(storedData!=null) throw new RecordAlreadyPresentException("Recoed already present!!");
+		repo.save(register);
+		return register;
+	}
+
+	@Override
+	public Register update(Register register, int id) {
+		
+		return repo.saveAndFlush(register);
+	}
+
+	@Override
+	public String delete(int id) {
+		repo.deleteById(id);
+		return "record deleted!!";
+	}
+
+	@Override
+	public String deleteAll() {
+		repo.deleteAll();
+		return "All records Deleted";
+	}
+
+}

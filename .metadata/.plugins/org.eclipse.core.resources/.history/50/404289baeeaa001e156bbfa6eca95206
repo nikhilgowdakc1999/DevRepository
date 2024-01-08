@@ -1,0 +1,155 @@
+package com.revolusyssolutions.person_api.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.revolusyssolutions.person_api.Response.ResponseHandler;
+import com.revolusyssolutions.person_api.advice.ResourceNotFoundException;
+import com.revolusyssolutions.person_api.entities.Login;
+import com.revolusyssolutions.person_api.entities.Person;
+import com.revolusyssolutions.person_api.entities.services.PersonService;
+
+import jakarta.validation.Valid;
+
+@RestController
+
+public class PersonController {
+
+	@Autowired
+	private PersonService personservice;
+
+	//fetching all available persons data
+	@GetMapping("/persons")
+	public ResponseEntity<Object>  getAllPersons()
+	{
+		List<Person> persons=personservice.getAll() ;
+		if(persons.isEmpty())
+		{
+			throw new ResourceNotFoundException("No Records found!!");	
+		}
+		return ResponseHandler.generateResponse("Persons data retrived succesfully!!", HttpStatus.OK,HttpStatus.OK,persons);
+	}
+
+	//fetching a particular person
+	@GetMapping("/persons/{id}")
+	public ResponseEntity<Object> get(@PathVariable int id)
+	{
+		List<Person> Persons=personservice.getAll();
+		if(Persons.isEmpty()) 
+		{
+			throw new ResourceNotFoundException("No record found!!");
+		}
+		Optional<Person> per=null;
+		for(Person p:Persons)
+		{
+			if(p.getId()==id)
+			{
+				per=personservice.getPerson(id);	
+			}
+			else
+			{
+				throw new ResourceNotFoundException("Person data Not Found with id: "+id);
+			}
+		}
+		return ResponseHandler.generateResponse("Person data retrived succesfully!!",HttpStatus.OK,HttpStatus.OK,per);
+	}
+
+	//Creating a new person data
+	@PostMapping("/Register")
+	public ResponseEntity<Object> createPerson(@Valid @RequestBody Person person )
+	{
+		Person per=this.personservice.addPerson(person);	
+		return ResponseHandler.generateResponse("Person data added succesfully!!", HttpStatus.CREATED,HttpStatus.CREATED, per);
+	}
+
+
+	//Person login
+	@PostMapping("/login")
+	public ResponseEntity<Object> personLogin(@Valid @RequestBody Login login)
+	{
+		Login in=null;
+		List<Person> persons=personservice.getAll();
+		for(Person p:persons)
+		{
+			if(p.getPassword()==login.getPassword())
+			{
+				 in=personservice.loginPerson(login);
+				 System.out.println("login");
+			}else
+			{
+				throw new ResourceNotFoundException("Password incorrect!!");
+			}
+		}
+		
+		return ResponseHandler.generateResponse("Login succesfull!!",HttpStatus.CREATED, in);
+	}
+	
+	//Update existing person data
+	@PutMapping("/Register/{id}")
+	public ResponseEntity<Object> update(@Valid @RequestBody Person person,@ PathVariable int id)
+	{
+		List<Person> Persons=personservice.getAll();
+		Person per=null;
+		for(Person p:Persons)
+		{
+			if(p.getId()==id)
+			{
+				per=personservice.updatePerson(person, id);	
+			}
+			else
+			{
+				throw new ResourceNotFoundException("Person data Not Found with id: "+id);
+			}
+		}
+		return ResponseHandler.generateResponse("person data updated succesfully!!", HttpStatus.CREATED, per);
+	}
+
+	//Delete a particular person detail
+	@DeleteMapping("/persons/{id}")
+	public ResponseEntity<Object> delete(@PathVariable int id)
+	{
+		List<Person> Persons=personservice.getAll();
+		if(Persons.isEmpty()) 
+		{
+			throw new ResourceNotFoundException("No records found!!");
+		}
+		for(Person p:Persons)
+		{
+			if(p.getId()==id)
+			{
+				personservice.deletePerson(id);	
+			}
+			else
+			{
+				throw new ResourceNotFoundException("Person data Not Found with id: "+id);
+			}
+		}
+		return ResponseHandler.generateResponse("person data deleted succesfully!!", HttpStatus.NO_CONTENT, null);
+	}
+
+	//Delete all existing records
+	@DeleteMapping("/persons")
+	public ResponseEntity<Object> deleteAll()
+	{
+		List<Person> persons=personservice.getAll() ;
+		if(persons.isEmpty())
+		{
+			throw new ResourceNotFoundException("No Records found to delete!!");	
+		}
+		this.personservice.deleteAllPersons();
+		return ResponseHandler.generateResponse("All persons data deleted succesfully!!",  HttpStatus.NO_CONTENT, null);
+	}
+
+}

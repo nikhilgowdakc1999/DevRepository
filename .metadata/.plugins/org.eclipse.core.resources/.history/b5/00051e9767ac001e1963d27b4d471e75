@@ -1,0 +1,17 @@
+package com.revolusys.Registration_api.service;
+
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import com.revolusys.Registration_api.entities.Register;
+import com.revolusyssolutions.person_api.entities.Person;
+
+@Repository
+public interface RegisterRepo extends JpaRepository<Register, Integer> {
+
+public Optional<Register> findByemail(String email);
+	
+//	public Optional<Register> findByname(String name);
+}

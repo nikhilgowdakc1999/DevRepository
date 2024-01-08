@@ -1,0 +1,110 @@
+package com.revolusyssolutions.person_api.controller;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.revolusyssolutions.person_api.advice.ResourceNotFoundException;
+import com.revolusyssolutions.person_api.entities.Person;
+import com.revolusyssolutions.person_api.entities.services.PersonService;
+
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("Register")
+public class PersonController {
+	
+	@Autowired
+	private PersonService personservice;
+
+	//fetching all available persons
+	@GetMapping("person")
+	public ResponseEntity<List<Person>>  getAllPersons()
+	{
+		List<Person> persons=personservice.getAll() ;
+		if(persons.isEmpty())
+		{
+			throw new ResourceNotFoundException("No Records found!!");	
+		}
+		return new ResponseEntity<List<Person>>(persons, HttpStatus.OK);
+	}
+	
+	//fetching a particular person
+	@GetMapping("/person/{id}")
+	public ResponseEntity< Optional<Person>> get(@PathVariable int id)
+	{
+		List<Person> Persons=personservice.getAll();
+		Optional<Person> per=null;
+		for(Person p:Persons)
+		{
+			if(p.getId()==id)
+			{
+				per=personservice.getPerson(id);
+				
+			}
+			else
+			{
+				throw new ResourceNotFoundException("Person data Not Found with id: "+id);
+			}
+		}
+		return new ResponseEntity<Optional<Person>>(per,HttpStatus.OK);
+	}
+	
+	//Creating a new person data
+	@PostMapping("/person")
+	public ResponseEntity<Person> createPerson(@Valid @RequestBody Person person )
+	{
+		List<Person> Persons=personservice.getAll();
+		 Person per=null;
+		for(Person p:Persons)
+		{
+			if(p.getName()==person.getName())
+			{
+				throw new ResourceNotFoundException("Record already exists");
+			}
+			else
+			{
+				per=this.personservice.addPerson(person);
+			}
+		}
+		
+		return new ResponseEntity<Person>(per, HttpStatus.CREATED);
+	}
+	
+	//Update existing person data
+	@PutMapping("/person/{id}")
+	public ResponseEntity<Person> update(@Valid @RequestBody Person person,@ PathVariable int id)
+	{
+		Person p=this.personservice.updatePerson(person, id);
+		return new ResponseEntity<Person>(p,HttpStatus.CREATED);
+	}
+	
+	//Delete a particular person detail
+	@DeleteMapping("/person/{id}")
+	public ResponseEntity<String> delete(@PathVariable int id)
+	{
+		this.personservice.deletePerson(id);
+		return new ResponseEntity<String>("Deleted record with id "+id,HttpStatus.NO_CONTENT) ;
+	}
+	
+	//Delete all existing records
+	@DeleteMapping("/person")
+	public ResponseEntity<String> deleteAll()
+	{
+		this.personservice.deleteAllPersons();
+		return new ResponseEntity<String>("All records deleted",HttpStatus.NO_CONTENT) ;
+	}
+	
+}

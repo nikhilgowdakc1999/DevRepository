@@ -1,0 +1,9 @@
+package com.revolusys.Registration_api.service;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.revolusys.Registration_api.entities.Register;
+
+public interface RegisterRepo extends JpaRepository<Register, Integer> {
+
+}

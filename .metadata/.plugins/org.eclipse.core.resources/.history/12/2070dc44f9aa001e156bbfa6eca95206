@@ -1,0 +1,69 @@
+package com.revolusyssolutions.person_api.entities.services;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.revolusyssolutions.person_api.advice.ResourceNotFoundException;
+import com.revolusyssolutions.person_api.entities.Login;
+import com.revolusyssolutions.person_api.entities.Person;
+import com.revolusyssolutions.person_api.repository.PersonRepo;
+
+@Service
+public class PersonServiceImpl implements PersonService{
+
+	@Autowired
+	private PersonRepo repo;
+
+	@Override
+	public List<Person> getAll()
+	{
+		return this.repo.findAll();
+	}
+
+	@Override
+	public Optional<Person> getPerson(int id)
+	{
+		return this.repo.findById(id);
+	}
+
+	@Override
+	public Person addPerson(Person person) {
+		Person storedvalue=repo.findByemail(person.getEmail());
+		if(storedvalue!= null) throw new ResourceNotFoundException("Record already present!!");
+		return this.repo.save(person);
+	}
+
+	@Override
+	public Login loginPerson(Login login) {
+
+		Person value=repo.findByemail(login.getEmail());
+		if(value==null)   throw new RuntimeException("User doesn't exist!!");
+		return this.repo.save(login);
+	}
+
+	@Override
+	public Person updatePerson(Person person, int id)
+	{	
+		return repo.saveAndFlush(person);
+	}
+
+	@Override
+	public void deletePerson(int id)
+	{
+		repo.deleteById(id);
+	}
+
+	@Override
+	public void deleteAllPersons()
+	{
+		repo.deleteAll();	
+	}
+
+
+
+
+
+}

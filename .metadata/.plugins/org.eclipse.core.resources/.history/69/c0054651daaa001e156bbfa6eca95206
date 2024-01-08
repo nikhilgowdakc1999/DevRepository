@@ -1,0 +1,5 @@
+package com.revolusyssolutions.person_api.entities.advice;
+
+public class MyCustomException extends Exception {
+
+}

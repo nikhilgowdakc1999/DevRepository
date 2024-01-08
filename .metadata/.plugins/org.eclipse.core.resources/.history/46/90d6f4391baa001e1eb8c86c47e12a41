@@ -1,0 +1,10 @@
+package com.revolusyssolutions.person_api.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.revolusyssolutions.person_api.entities.Login;
+import com.revolusyssolutions.person_api.entities.Person;
+
+public interface LoginRepo extends JpaRepository<Login, Integer>{
+
+}

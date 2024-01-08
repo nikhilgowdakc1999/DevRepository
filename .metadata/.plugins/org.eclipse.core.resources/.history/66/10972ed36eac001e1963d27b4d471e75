@@ -1,0 +1,5 @@
+package com.revolusys.Registration_api.advice;
+
+public class RecordNotFoundException {
+
+}
