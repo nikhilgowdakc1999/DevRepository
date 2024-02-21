@@ -17,19 +17,20 @@ public class LoginController {
 	@Autowired
 	private PersonService personservice;
 	
-	//Otp Generation
+/*	//Otp Generation
 	@PostMapping("/generate-Otp")
 	public String OtpGeneration(@Valid @RequestBody Login log)
 	{
 		String msg=this.personservice.OTPGeneration(log);
 		return msg;
 	}
+	*/
 	
 	//Login with credentials
 	@PostMapping("/Login")
-	public String logIn( @Valid @RequestBody Login log,@RequestParam String OTP)
+	public String logIn (@Valid @RequestBody Login log)
 	{
-		String msg=this.personservice.RegisterLogin(log,OTP);
+		String msg=this.personservice.RegisterLogin(log);
 		return msg;
 	}
 	

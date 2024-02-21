@@ -90,20 +90,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			Boolean validateToken = this.jwtHelper.validateToken(token, userDetails);
 			if (validateToken) {
 
-				//set the authentication
+				//set the authentication        parameters:-userdetails=principal, null=credentials(usally set to null as they are not used for security tokens), userDetails.getAuthorities()=List of granted authorities                                                
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+				//set additional details for authentication
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				
+				// Set the authentication in the SecurityContextHolder
 				SecurityContextHolder.getContext().setAuthentication(authentication); // important step
 
 
 			} else {
+				// If token validation fails, log the information
 				logger.info("Validation fails !!");
 			}
 
 		}
 
-		
+		// Continue with the filter chain  for further processing of the request
 		filterChain.doFilter(request, response);
 
 	}

@@ -25,7 +25,7 @@ import com.revolusys.Registration_api.service.CustomUserDetailService;
 public class SecurityConfig {
 
 	@Autowired
-	private JwtAuthenticationEntryPoint point;
+	private JwtAuthenticationEntryPoint point; //handles unauthorized access exceptions
 
 	@Bean
 	PasswordEncoder passwordEncoder()
@@ -61,7 +61,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception { //This method sets up the main configuration for Spring Security, defining authentication and authorization rules, exception handling, and session management, tailored for stateless JWT authentication
 
 		http.csrf(csrf->csrf.disable()) //Cross site request forgery: most severe vulnerabilities like changing user info or gaining full info about user
 		 //   .cors(cors->cors.disable()) //Cross origin resource sharing: Mechanism of sharing data to third party intentionally

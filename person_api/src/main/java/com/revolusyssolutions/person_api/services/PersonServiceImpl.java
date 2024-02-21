@@ -54,7 +54,7 @@ public class PersonServiceImpl implements PersonService{
 		System.out.println("Person added :"+person);
 		return person;
 	}
-	
+/*	
 	@Override
 	public String OTPGeneration(Login log)  //imp
 	{
@@ -76,7 +76,7 @@ public class PersonServiceImpl implements PersonService{
 		}
 
 	}
-
+*/
 	@Override
 	public Person updatePerson(Person person, int id)
 	{	
@@ -144,16 +144,24 @@ public class PersonServiceImpl implements PersonService{
 	}
 
 	@Override
-	public String RegisterLogin(Login log,String otp) {
+	public String RegisterLogin(Login log) {
 		Optional<Person> existingRecord=repo.findByemail(log.getEmail());
 		if(existingRecord.isPresent()) 
 		{
-			if(otp.equals(generatedOtp) && log.getPassword().equals(existingRecord.get().getPassword()))
+			if(log.getPassword().equals(existingRecord.get().getPassword()))
 			{
-				return "Login Succesfull!!";
+				Random r = new Random();
+				generatedOtp = String.format("%06d", r.nextInt(100000)); // generates random nos in b/n 0-99999
+	            // % -> start of format specifier,0-> 'O'padding on left,6-> width of characters,d-> conversion character for a Decimal Integer
+				String subject = "Email Verfication";
+				String body = "Your verification OTP is "+generatedOtp;
+				//Email Send
+				this.emailService.sendEmail(existingRecord.get().getEmail(), subject, body);
+				
+				return "Login Succesfull!! && OTP :"+generatedOtp;
 			}else
 			{
-				throw new ResourceNotFoundException("Password incorrect or OTP invalid!!");
+				throw new ResourceNotFoundException("Password incorrect!!");
 			}	
 		}else
 		{

@@ -25,11 +25,10 @@ public interface PersonService {
 	
 	public void deleteAllPersons();
 	
-	public String OTPGeneration(Login log);
+//	public String OTPGeneration(Login log);
 	
-	public String RegisterLogin(Login log,String otp);
+	public String RegisterLogin(Login log);
 
 	public String updatePassword(Login log,String otp);
 
-	
 }
