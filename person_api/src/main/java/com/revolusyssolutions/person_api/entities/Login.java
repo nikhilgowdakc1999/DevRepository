@@ -3,45 +3,21 @@ package com.revolusyssolutions.person_api.entities;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 public class Login {
 
+	@NotEmpty(message="name is mandatory field")
+	@Pattern(regexp="^[A-Z][a-zA-Z ]*$",message="name must start with capital and should contain only characters")
+	private String name;
+	
 	@NotEmpty(message="email is mandatory field")
 	@Email(message="provide a valid mailId")
 	@Pattern(regexp="^.*\\.com$",message="Invalid mailId")
-	private String Email;
-	
-	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@!#%&])[A-Za-z\\d@!&%#]+$",message="Invalid Password")
-	@Size(min=4,max=15,message="password must range b/n 4-10 ")
+	//	@Pattern(regexp="^[a-z0-9][-a-z0-9._]+@([-a-z0-9]+\\.)+[a-z]{2,5}$",message="invalid mail")
+	private String email;
+
 	@NotEmpty(message="password is mandatory field")
-	private String Password;
-	
-	
-	@Override
-	public String toString() {
-		return "Login [Email=" + Email + ", Password=" + Password + "]";
-	}
-	public Login() {
-		super();
-		
-	}
-	public Login(String email, String password) {
-		super();
-		Email = email;
-		Password = password;
-	}
-	public String getEmail() {
-		return Email;
-	}
-	public void setEmail(String email) {
-		Email = email;
-	}
-	public String getPassword() {
-		return Password;
-	}
-	public void setPassword(String password) {
-		Password = password;
-	}
-	
+	private String password;
 }

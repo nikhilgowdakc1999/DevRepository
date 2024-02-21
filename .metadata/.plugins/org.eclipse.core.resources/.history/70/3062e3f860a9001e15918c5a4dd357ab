@@ -1,5 +1,0 @@
-package com.springrest.springrest.advice;
-
-public class CourseNotFoundException extends Exception {
-
-}

@@ -7,7 +7,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 class RegistrationApiApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void contextLoads()
+	{
+		System.out.println("Unit Testing and Integration Testing");
 	}
-
+	
 }

@@ -1,8 +1,0 @@
-package com.revolusyssolutions.person_api.entities;
-
-public class Login {
-
-	private String Email;
-	private String Password;
-	
-}

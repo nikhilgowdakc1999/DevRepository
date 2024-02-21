@@ -1,18 +1,24 @@
 package com.revolusys.Registration_api.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.revolusys.Registration_api.advice.RecordAlreadyPresentException;
 import com.revolusys.Registration_api.advice.RecordNotFoundException;
+import com.revolusys.Registration_api.config.JwtHelper;
 import com.revolusys.Registration_api.entities.LogIn;
 import com.revolusys.Registration_api.entities.Register;
 import com.revolusys.Registration_api.repository.RegisterRepo;
+import com.revolusys.Registration_api.response.JwtResponse;
 import com.revolusys.Registration_api.response.Responsehandler;
 import jakarta.validation.Valid;
 
@@ -20,8 +26,17 @@ import jakarta.validation.Valid;
 public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
+	private UserDetailsService userDetailsService;
+
+	@Autowired
+	private JwtHelper helper;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder; //imp to encrypt password
+
+	@Autowired
 	private RegisterRepo repo;
-	
+
 	@Override
 	public List<Register> getAll() 
 	{
@@ -32,25 +47,27 @@ public class RegisterServiceImpl implements RegisterService {
 	public Register add(Register register) {
 		Optional <Register> storedData=repo.findByemail(register.getEmail());
 		if(storedData.isPresent()) throw new RecordAlreadyPresentException("Record already present!!");
+		register.setPassword(passwordEncoder.encode(register.getPassword()));
 		repo.save(register);
 		return register;
 	}
-	
-	@Override
-	public String deleteAll() {
-		repo.deleteAll();
-		return "All records Deleted";
-	}
 
 	@Override
-	public ResponseEntity<Object> RegisterLogin(@Valid LogIn log) {
-		
+	public ResponseEntity<Object> RegisterLogin(LogIn log) {
+
 		Optional<Register> existingRecord=repo.findByemail(log.getEmail());
 		if(existingRecord.isPresent()) 
 		{
-			if(log.getPassword().equals(existingRecord.get().getPassword()))
+			if(passwordEncoder.matches(log.getPassword(), existingRecord.get().getPassword()))
 			{
-				 return Responsehandler.generateResponse("Login Succesfull!!", HttpStatus.OK, log);
+				UserDetails userDetails=userDetailsService.loadUserByUsername(log.getEmail());
+				String token=this.helper.generateToken(userDetails);
+
+				JwtResponse response=JwtResponse.builder()
+						                        .jwtToken(token)
+						                        .username(userDetails.getUsername()).build();
+				
+				return Responsehandler.generateResponse("Login Succesfull!!", HttpStatus.OK, response , "success");
 			}else
 			{
 				throw new RecordNotFoundException("Password incorrect!!");
@@ -59,23 +76,71 @@ public class RegisterServiceImpl implements RegisterService {
 		{
 			throw new RecordNotFoundException("User doesn't exist with provided email!!");
 		}
-		
+
 	}
 
 	@Override
-	public ResponseEntity<Object> updatePassword(@Valid LogIn log) {
-		
+	public ResponseEntity<Object> updatePassword(LogIn log) {
+
 		Optional<Register> existingperson=repo.findByemail(log.getEmail());
 		if(existingperson.isPresent()) 
 		{
-				existingperson.get().setPassword(log.getPassword());
-				Register reg=repo.save(existingperson.get());
-				return Responsehandler.generateResponse("Password changed succesfully", HttpStatus.OK, reg);
+			existingperson.get().setPassword(passwordEncoder.encode(log.getPassword()));
+			Register reg=repo.save(existingperson.get());
+			return Responsehandler.generateResponse("Password changed succesfully", HttpStatus.OK, reg ,"success");
 		}
 		else 
 		{
 			throw new RecordNotFoundException("User doesn't exist with provided email!!");
 		}	
+	}
+
+	@Override
+	public String deleteAll() {
+		repo.deleteAll();
+		return "All records Deleted";
+	}
+
+	@Override
+	public Register update(Map<String,Object> map, int id)
+	{
+		Optional<Register> existingrecord=repo.findById(id);
+		if(existingrecord.isPresent())
+		{
+			map.forEach((key,value)->{
+				switch(key) {
+				case "name":
+					 existingrecord.get().setName((String) value);
+					 break;
+				case "email":
+					 existingrecord.get().setName((String) value);
+					 break;
+				case "age":
+					 existingrecord.get().setName((String) value);
+					 break;
+				case "gender":
+					 existingrecord.get().setName((String) value);
+					 break;
+				case "phoneno":
+					 existingrecord.get().setName((String) value);
+					 break;
+				case "country":
+					 existingrecord.get().setName((String) value);
+					 break;
+				case "password":
+					 existingrecord.get().setName((String) value);
+					 break;
+				}
+				
+			});
+			
+			return repo.save(existingrecord.get());
+		}
+		else
+		{
+			throw new RecordNotFoundException("Record Not Found with id: "+id);
+		}
+		
 	}
 
 }

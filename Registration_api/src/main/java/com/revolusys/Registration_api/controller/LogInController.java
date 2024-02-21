@@ -18,7 +18,7 @@ public class LogInController {
 	private RegisterService regservice;
 	
 //	Login
-	@PostMapping("/Login")
+	@PostMapping("/Auth-Login")
 	public ResponseEntity<Object> login(@Valid @RequestBody LogIn log)
 	{
 		ResponseEntity<Object> in=regservice.RegisterLogin(log);

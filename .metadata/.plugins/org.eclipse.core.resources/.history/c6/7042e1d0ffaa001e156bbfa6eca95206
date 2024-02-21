@@ -1,9 +1,0 @@
-package com.revolusyssolutions.person_api.advice;
-
-public class ResourceAlreadyPresentException extends RuntimeException{
-	
-	ResourceAlreadyPresentException(String msg)
-	{
-		super(msg);
-	}
-}

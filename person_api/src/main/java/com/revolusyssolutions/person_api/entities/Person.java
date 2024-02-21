@@ -14,7 +14,11 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @Entity
 @Table(name="person_details")
 public class Person {
@@ -57,8 +61,8 @@ public class Person {
 	private String country;
 
 	
-	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@!#%&])[A-Za-z\\d@!&%#]+$",message="Invalid Password")
-	@Size(min=4,max=15,message="password must range b/n 4-10 ")
+//	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@!#%&])[A-Za-z\\d@!&%#]+$",message="Invalid Password")
+//	@Size(min=4,max=15,message="password must range b/n 4-10 ")
 	@NotEmpty(message="password is mandatory field")
 	private String password;
 

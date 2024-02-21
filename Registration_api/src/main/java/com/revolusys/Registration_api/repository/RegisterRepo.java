@@ -11,4 +11,5 @@ import com.revolusys.Registration_api.entities.Register;
 public interface RegisterRepo extends JpaRepository<Register, Integer> {
 
 	public Optional<Register> findByemail(String email);
+	
 }

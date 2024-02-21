@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="C:\Spring_tool_workspace\person_api"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -25,10 +26,8 @@
 	</section>
 	<section name="Maven2ProjectWizardArchifactPage">
 		<list key="package">
-			<item value="com.springrest"/>
 		</list>
 		<list key="groupId">
-			<item value="com.springrest"/>
 		</list>
 		<list key="artifactId">
 		</list>
@@ -46,12 +45,10 @@
 	</section>
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
-			<item value="com.springrest"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
-			<item value="springrest"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>
@@ -66,11 +63,25 @@
 		</list>
 	</section>
 	<section name="org.eclipse.m2e.core.pom.overview">
+		<list key="ciManagementUrl">
+		</list>
+		<list key="ciManagementSystem">
+		</list>
+		<list key="issueManagementSystem">
+		</list>
+		<list key="issueManagementUrl">
+		</list>
 	</section>
 	<section name="org.eclipse.m2e.core.pom.dependencies">
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\New folder\micro_yt-main\micro_yt-main"/>
+			<item value="C:\New folder\email_otp_verification-main\email_otp_verification-main"/>
+			<item value="C:\New folder\spring-boot-twilio-main\spring-boot-twilio-main"/>
+			<item value="C:\New folder\integration-test-demo-main\integration-test-demo-main"/>
+			<item value="C:\Users\Nikhil\Documents\JwtExample3\JwtExample3"/>
+			<item value="C:\Users\Nikhil\Documents\New folder\spring-security-jwt-example"/>
 			<item value="C:\Users\Nikhil\Documents\springrest\springrest"/>
 			<item value="C:\Users\Nikhil\Documents\jdbc4\JdbcTemplateRowMapper"/>
 			<item value="C:\Users\Nikhil\Documents\onlinemall"/>

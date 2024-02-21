@@ -1,5 +1,0 @@
-package com.revolusyssolutions.person_api.advice;
-
-public class ResourceAlreadyPresentException {
-
-}

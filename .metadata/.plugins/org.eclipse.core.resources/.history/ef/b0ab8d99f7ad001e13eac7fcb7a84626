@@ -1,8 +1,0 @@
-package com.revolusys.Registration_api.entities;
-
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class LogIn {
-
-}

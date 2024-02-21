@@ -1,7 +1,0 @@
-package com.springrest.springrest.advice;
-
-public class CourseException {
-
-	private String message;
-	
-}

@@ -8,6 +8,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -16,7 +17,7 @@ import jakarta.validation.constraints.Size;
 @Table(name="Register_details")
 public class Register {
 
-	@Id
+	@Id //primary key
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
@@ -31,7 +32,6 @@ public class Register {
 	@Pattern(regexp="^.*\\.com$",message="Invalid mailId")
 	//	@Pattern(regexp="^[a-z0-9][-a-z0-9._]+@([-a-z0-9]+\\.)+[a-z]{2,5}$",message="invalid mail")
 	private String email;
-
 
 	//	@Size(min=21,max=60,message="age must be b/n 21-60")
 	@Min(value=21,message="age must be at least 21")  
@@ -50,13 +50,13 @@ public class Register {
 	private String phoneno;
 
 
-	@NotEmpty(message="countryname is mandatory field")
+	@NotBlank(message="country is mandatory field")
 	private String country;
 
 
-	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@!#%&])[A-Za-z\\d@!&%#]+$",message="Invalid Password")
-	@Size(min=4,max=15,message="password must range b/n 4-10 ")
-	@NotEmpty(message="password is mandatory field")
+//	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@!#%&])[A-Za-z\\d@!&%#]+$",message="Invalid Password")
+//	@Size(min=4,max=15,message="password must range b/n 4-10 ")
+	@NotBlank(message="password is mandatory field")
 	private String password;
 
 
