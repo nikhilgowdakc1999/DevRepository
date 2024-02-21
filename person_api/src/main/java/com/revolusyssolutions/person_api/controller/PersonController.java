@@ -19,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revolusyssolutions.person_api.Response.ResponseHandler;
 import com.revolusyssolutions.person_api.advice.ResourceNotFoundException;
 import com.revolusyssolutions.person_api.entities.Person;
-import com.revolusyssolutions.person_api.entities.services.PersonService;
+import com.revolusyssolutions.person_api.services.PersonService;
+
 import jakarta.validation.Valid;
 
 @RestController

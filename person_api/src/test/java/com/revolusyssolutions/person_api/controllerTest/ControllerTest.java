@@ -20,7 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revolusyssolutions.person_api.controller.TestPersonController;
 import com.revolusyssolutions.person_api.entities.Person;
-import com.revolusyssolutions.person_api.entities.services.PersonService;
+import com.revolusyssolutions.person_api.services.PersonService;
 
 @WebMvcTest(controllers = TestPersonController.class)
 public class ControllerTest {

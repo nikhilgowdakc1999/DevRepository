@@ -1,4 +1,4 @@
-package com.revolusyssolutions.person_api.entities.services;
+package com.revolusyssolutions.person_api.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;

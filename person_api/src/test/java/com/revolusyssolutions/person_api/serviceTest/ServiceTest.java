@@ -18,8 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.revolusyssolutions.person_api.entities.Person;
-import com.revolusyssolutions.person_api.entities.services.PersonService;
 import com.revolusyssolutions.person_api.repository.PersonRepo;
+import com.revolusyssolutions.person_api.services.PersonService;
 
 @SpringBootTest // loads full spring ApplicationContext including all the beans defined in application that will be used in our tests
 public class ServiceTest {

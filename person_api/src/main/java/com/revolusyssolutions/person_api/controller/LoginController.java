@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revolusyssolutions.person_api.entities.Login;
-import com.revolusyssolutions.person_api.entities.services.PersonService;
+import com.revolusyssolutions.person_api.services.PersonService;
 
 import jakarta.validation.Valid;
 

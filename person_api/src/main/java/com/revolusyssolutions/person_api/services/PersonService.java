@@ -1,4 +1,4 @@
-package com.revolusyssolutions.person_api.entities.services;
+package com.revolusyssolutions.person_api.services;
 
 import java.util.List;
 import java.util.Map;

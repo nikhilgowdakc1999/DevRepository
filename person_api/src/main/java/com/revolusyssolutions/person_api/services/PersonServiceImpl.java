@@ -1,4 +1,4 @@
-package com.revolusyssolutions.person_api.entities.services;
+package com.revolusyssolutions.person_api.services;
 
 import java.lang.reflect.Field;
 import java.util.List;
