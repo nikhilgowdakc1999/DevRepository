@@ -52,7 +52,7 @@ public class Person {
 
 	
 	@NotEmpty(message="phoneno is mandatory field")
-	@Size(min=10,max=10,message="phoneno must be a 10 digit number only")
+	@Size(min=10,max=13,message="phoneno must be a 10 digit number only")
 	//	@Digits(fraction = 0, integer = 10, message="phoneno must be a 10 digit number only")
 	private String phoneno;
 

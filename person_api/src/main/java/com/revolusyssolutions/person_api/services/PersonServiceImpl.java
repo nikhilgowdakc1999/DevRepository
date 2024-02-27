@@ -157,7 +157,11 @@ public class PersonServiceImpl implements PersonService{
 				String body = "Your verification OTP is "+generatedOtp;
 				//Email Send
 				this.emailService.sendEmail(existingRecord.get().getEmail(), subject, body);
-				
+				// sending otp to mobile no
+		/*		PhoneNumber to = new PhoneNumber(existingRecord.get().getPhoneno());
+				PhoneNumber from = new PhoneNumber(twilioConfig.getTrialNumber());
+				Message message = Message.creator(to, from,body).create();
+			*/
 				return "Login Succesfull!! && OTP :"+generatedOtp;
 			}else
 			{

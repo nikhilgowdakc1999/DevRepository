@@ -27,7 +27,6 @@
 			<groupId>org.springframework.boot</groupId>    <!--to include email functionality that provides pre-configured settings for sending emails using JavaMailSender -->
 			<artifactId>spring-boot-starter-mail</artifactId> <!--After adding this springboot will automatically configure "JavaMailSender"-->
 		</dependency>
-		
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -48,8 +47,8 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.h2database/h2 -->
-       <dependency>
+	 <!--    https://mvnrepository.com/artifact/com.h2database/h2  -->
+      <dependency>
               <groupId>com.h2database</groupId>
               <artifactId>h2</artifactId>
               <scope>test</scope>
@@ -60,7 +59,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
 	</dependencies>
 
 	<build>

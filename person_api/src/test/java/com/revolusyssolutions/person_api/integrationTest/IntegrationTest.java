@@ -23,6 +23,7 @@ import com.revolusyssolutions.person_api.entities.Person;
 public class IntegrationTest {
 
 	@LocalServerPort //injects HTTP Server Port that was allocated at runtime and is particularly useful when using random port for testing
+	
 	private int port;
 
 	private String baseUrl = "http://localhost";

@@ -43,7 +43,7 @@ public class Person_advice  {
 		return new ResponseEntity<ErrorResponse>(apiresponse,HttpStatus.FOUND);
 	}
 	
-	
+/*	
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<Object>exceptionHandler(Exception e) 
@@ -56,6 +56,6 @@ public class Person_advice  {
 		return new ResponseEntity<Object>(body,HttpStatus.BAD_REQUEST ); 
 	}
 
-
+*/
 }
 
