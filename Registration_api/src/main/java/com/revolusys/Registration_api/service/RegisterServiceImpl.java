@@ -3,6 +3,7 @@ package com.revolusys.Registration_api.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,8 @@ import com.revolusys.Registration_api.entities.Register;
 import com.revolusys.Registration_api.repository.RegisterRepo;
 import com.revolusys.Registration_api.response.JwtResponse;
 import com.revolusys.Registration_api.response.Responsehandler;
-import jakarta.validation.Valid;
+
+import jakarta.servlet.http.Cookie;
 
 @Service
 public class RegisterServiceImpl implements RegisterService {
@@ -36,6 +38,11 @@ public class RegisterServiceImpl implements RegisterService {
 
 	@Autowired
 	private RegisterRepo repo;
+	
+	@Autowired
+	EmailService emailService;
+	
+	String generatedOtp;
 
 	@Override
 	public List<Register> getAll() 
@@ -60,11 +67,24 @@ public class RegisterServiceImpl implements RegisterService {
 		{
 			if(passwordEncoder.matches(log.getPassword(), existingRecord.get().getPassword()))
 			{
+				/*
+				Random r = new Random();
+				generatedOtp = String.format("%06d", r.nextInt(100000));
+				String subject = "Email Verfication";
+				String body = "Your verification OTP is "+generatedOtp;
+				//Email Send
+				this.emailService.sendEmail(existingRecord.get().getEmail(), subject, body);
+				*/
+				
 				UserDetails userDetails=userDetailsService.loadUserByUsername(log.getEmail());
 				String token=this.helper.generateToken(userDetails);
-
+                
+				Cookie tokenCookie=new Cookie("Cookie",token);
+				tokenCookie.setPath("/"); // accessible throughout the domain
+				tokenCookie.setSecure(true);
+				
 				JwtResponse response=JwtResponse.builder()
-						                        .jwtToken(token)
+						                        .jwtToken(tokenCookie)
 						                        .username(userDetails.getUsername()).build();
 				
 				return Responsehandler.generateResponse("Login Succesfull!!", HttpStatus.OK, response , "success");
@@ -95,9 +115,11 @@ public class RegisterServiceImpl implements RegisterService {
 		}	
 	}
 
+
 	@Override
 	public String deleteAll() {
 		repo.deleteAll();
+		generatedOtp=null;
 		return "All records Deleted";
 	}
 

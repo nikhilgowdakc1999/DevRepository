@@ -25,6 +25,6 @@ public class LogIn {
 //	@Pattern(regexp="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@!#%&])[A-Za-z\\d@!&%#]+$",message="Invalid Password")
 //	@Size(min=4,max=15,message="password must range b/n 4-10 ")
 	@NotEmpty(message="password is mandatory field")
-	private String password;
+ 	private String password;
 	
 }

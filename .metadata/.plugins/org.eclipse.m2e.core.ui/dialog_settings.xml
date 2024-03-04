@@ -76,6 +76,9 @@
 	</section>
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="C:\Spring_tool_workspace\spring-boot-jpa-unit-testing-master\spring-boot-jpa-unit-testing-master"/>
+			<item value="C:\Spring_tool_workspace\spring-sso-google-main"/>
+			<item value="C:\Spring_tool_workspace\spring-boot-security-oauth2-example-master"/>
 			<item value="C:\New folder\micro_yt-main\micro_yt-main"/>
 			<item value="C:\New folder\email_otp_verification-main\email_otp_verification-main"/>
 			<item value="C:\New folder\spring-boot-twilio-main\spring-boot-twilio-main"/>

@@ -1,0 +1,17 @@
+
+server:
+   port: 8149
+
+security:
+  oauth2:
+    client:
+       clientId: ad673ec0732daabe5678
+       clientSecret: 7a044a14902f653fbd5c1de59ca5c41d2ffb11ba
+       accessTokenUri: https://github.com/login/oauth/access_token
+       userAuthorizationUri: https://github.com/login/oauth/authorize
+       clientAuthenticationScheme: form
+    resource:
+      user-info-uri: https://api.github.com/user
+      prefer-token-info: false 
+      
+      

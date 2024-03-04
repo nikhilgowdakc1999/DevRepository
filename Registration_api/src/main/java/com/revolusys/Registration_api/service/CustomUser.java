@@ -16,7 +16,7 @@ public class CustomUser implements UserDetails{
 	public CustomUser(Register reg)
 	{
 		super();
-		this.reg=reg;;
+		this.reg=reg;
 	}
 
 	@Override

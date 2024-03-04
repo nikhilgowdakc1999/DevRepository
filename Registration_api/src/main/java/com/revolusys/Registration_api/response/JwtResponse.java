@@ -1,5 +1,6 @@
 package com.revolusys.Registration_api.response;
 
+import jakarta.servlet.http.Cookie;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import lombok.ToString;
 @Builder
 public class JwtResponse {
 
-	private String jwtToken;
+	private Cookie jwtToken;
 	
 	private String username;
 

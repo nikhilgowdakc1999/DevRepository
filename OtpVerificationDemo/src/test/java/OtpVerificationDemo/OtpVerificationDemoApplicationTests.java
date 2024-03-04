@@ -8,6 +8,7 @@ class OtpVerificationDemoApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Welcome for Testing!!");
 	}
 
 }

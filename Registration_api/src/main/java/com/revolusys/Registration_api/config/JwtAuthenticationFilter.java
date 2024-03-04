@@ -46,7 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 		//  }
 		//Authorization
 
-		String requestHeader = request.getHeader("Authorization");
+		String requestHeader = request.getHeader("Cookie");
 		//Bearer 2352345235sdfrsfgsdfsdf
 		logger.info(" Header :  {}", requestHeader);
 		

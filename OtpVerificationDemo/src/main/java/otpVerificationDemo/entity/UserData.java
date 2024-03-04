@@ -13,6 +13,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 @Entity
 @Table(name="user_tbl")
 public class UserData {
